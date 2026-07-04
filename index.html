@@ -1,18 +1,170 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
-<html>
-<head>
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  <meta http-equiv="Content-Style-Type" content="text/css">
-  <title></title>
-  <meta name="Generator" content="Cocoa HTML Writer">
-  <meta name="CocoaVersion" content="2685.6">
-  <style type="text/css">
-    body {background-color: #ebe5d0}
-    p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; text-align: center; font: 14.5px Thonburi; color: #43463a; -webkit-text-stroke: #43463a; background-color: #ebe5d0}
-    span.s1 {font-kerning: none}
-  </style>
-</head>
-<body>
-<p class="p1"><span class="s1">https://script.google.com/macros/s/AKfycbwSmsfq2eDypGIJyBfv1ltB7JEctVSknWbiGvXyxKQ/dev</span></p>
-</body>
-</html>
+/**
+ * Watpanya Meditation Retreat App — backend (Google Apps Script)
+ * -----------------------------------------------------------------
+ * วิธีใช้:
+ * 1. สร้าง Google Sheet ใหม่ (เว้นว่างไว้ ไม่ต้องพิมพ์อะไร)
+ * 2. เมนู Extensions > Apps Script
+ * 3. ลบโค้ดเดิมทั้งหมดในไฟล์ Code.gs แล้ววางโค้ดทั้งหมดนี้แทน
+ * 4. กด Deploy > New deployment > เลือกประเภท "Web app"
+ *      - Execute as: Me
+ *      - Who has access: Anyone
+ * 5. กด Deploy แล้วอนุญาตสิทธิ์ที่ขอ (Authorize access)
+ * 6. คัดลอกลิงก์ Web app URL (ลงท้ายด้วย /exec) ไปวางในไฟล์แอพ
+ *    ตรงตัวแปร API_URL แทนคำว่า PASTE_YOUR_GOOGLE_APPS_SCRIPT_WEB_APP_URL_HERE
+ *
+ * ชีตทั้งหมด (Applications, Dates_3day, Dates_5day) จะถูกสร้างให้อัตโนมัติ
+ * ในสเปรดชีตนี้ตั้งแต่ครั้งแรกที่แอพเรียกใช้งาน ไม่ต้องสร้างเองล่วงหน้า
+ * -----------------------------------------------------------------
+ */
+
+var APP_HEADERS = [
+  'refId','courseId','courseTitle','dateId','dateLabel','email','acceptRules',
+  'title','titleOther','firstName','lastName','birthdate','ageRange','phone',
+  'education','occupation','nationalId','houseNo','street','subdistrict',
+  'district','province','zip','hasCondition','conditionDetail',
+  'submittedAt','submittedAtLabel'
+];
+
+var CONFIG_HEADERS = ['id','label','closed','capacity','used','special'];
+
+function doGet(e) {
+  var action = e.parameter.action;
+  try {
+    var result;
+    switch (action) {
+      case 'listApplications':
+        result = listApplications();
+        break;
+      case 'getApplication':
+        result = getApplication(e.parameter.refId);
+        break;
+      case 'saveApplication':
+        result = saveApplication(JSON.parse(e.parameter.data));
+        break;
+      case 'deleteApplication':
+        result = deleteApplication(e.parameter.refId);
+        break;
+      case 'getConfig':
+        result = getConfig(e.parameter.courseId);
+        break;
+      case 'saveConfig':
+        result = saveConfig(e.parameter.courseId, JSON.parse(e.parameter.data));
+        break;
+      default:
+        return jsonOutput({ ok: false, error: 'unknown action: ' + action });
+    }
+    return jsonOutput({ ok: true, data: result });
+  } catch (err) {
+    return jsonOutput({ ok: false, error: String(err) });
+  }
+}
+
+function jsonOutput(obj) {
+  return ContentService.createTextOutput(JSON.stringify(obj))
+    .setMimeType(ContentService.MimeType.JSON);
+}
+
+function getSheet(name) {
+  var ss = SpreadsheetApp.getActiveSpreadsheet();
+  var sh = ss.getSheetByName(name);
+  if (!sh) {
+    sh = ss.insertSheet(name);
+    if (name === 'Applications') {
+      sh.appendRow(APP_HEADERS);
+    } else {
+      sh.appendRow(CONFIG_HEADERS);
+    }
+  }
+  return sh;
+}
+
+function sheetNameForCourse(courseId) {
+  return courseId === '3day' ? 'Dates_3day' : 'Dates_5day';
+}
+
+// ---------------- Applications ----------------
+
+function listApplications() {
+  var sh = getSheet('Applications');
+  var values = sh.getDataRange().getValues();
+  var headers = values[0];
+  var rows = [];
+  for (var i = 1; i < values.length; i++) {
+    if (!values[i][0]) continue;
+    var obj = {};
+    headers.forEach(function (h, idx) { obj[h] = values[i][idx]; });
+    rows.push(obj);
+  }
+  return rows;
+}
+
+function findRowIndexByRefId(sh, refId) {
+  var values = sh.getDataRange().getValues();
+  for (var i = 1; i < values.length; i++) {
+    if (values[i][0] === refId) return i + 1; // 1-indexed sheet row
+  }
+  return -1;
+}
+
+function getApplication(refId) {
+  var rows = listApplications();
+  for (var i = 0; i < rows.length; i++) {
+    if (rows[i].refId === refId) return rows[i];
+  }
+  return null;
+}
+
+function saveApplication(record) {
+  var sh = getSheet('Applications');
+  var rowIdx = findRowIndexByRefId(sh, record.refId);
+  var rowValues = APP_HEADERS.map(function (h) {
+    return record[h] !== undefined && record[h] !== null ? record[h] : '';
+  });
+  if (rowIdx === -1) {
+    sh.appendRow(rowValues);
+  } else {
+    sh.getRange(rowIdx, 1, 1, rowValues.length).setValues([rowValues]);
+  }
+  return { saved: true };
+}
+
+function deleteApplication(refId) {
+  var sh = getSheet('Applications');
+  var rowIdx = findRowIndexByRefId(sh, refId);
+  if (rowIdx > -1) sh.deleteRow(rowIdx);
+  return { deleted: true };
+}
+
+// ---------------- Date / round configuration ----------------
+
+function getConfig(courseId) {
+  var sh = getSheet(sheetNameForCourse(courseId));
+  var values = sh.getDataRange().getValues();
+  var rows = [];
+  for (var i = 1; i < values.length; i++) {
+    if (!values[i][0]) continue;
+    rows.push({
+      id: values[i][0],
+      label: values[i][1],
+      closed: values[i][2] === true || values[i][2] === 'TRUE',
+      capacity: values[i][3] === '' ? null : Number(values[i][3]),
+      used: Number(values[i][4]) || 0,
+      special: values[i][5] === true || values[i][5] === 'TRUE'
+    });
+  }
+  return rows;
+}
+
+function saveConfig(courseId, arr) {
+  var sh = getSheet(sheetNameForCourse(courseId));
+  sh.clearContents();
+  sh.appendRow(CONFIG_HEADERS);
+  arr.forEach(function (e) {
+    sh.appendRow([
+      e.id, e.label, !!e.closed,
+      (e.capacity === null || e.capacity === undefined) ? '' : e.capacity,
+      e.used || 0, !!e.special
+    ]);
+  });
+  return { saved: true };
+}
