@@ -14,115 +14,134 @@
     --saffron: #E08E2F;
     --line: rgba(27,58,52,0.18);
     --danger: #A8432F;
+    --radius: 14px;
+    --radius-sm: 10px;
+    --shadow: 0 6px 22px rgba(27,58,52,.07);
+    --shadow-btn: 0 4px 14px rgba(27,58,52,.22);
     font-family: 'Noto Sans Thai', sans-serif;
+    font-size: 16px;
+    line-height: 1.55;
     color: var(--ink);
     background: var(--bg);
     min-height: 100%;
     padding: 0;
     box-sizing: border-box;
+    -webkit-text-size-adjust: 100%;
   }
   #panya-root * { box-sizing: border-box; }
   #panya-root h1, #panya-root h2, #panya-root h3, #panya-root .display { font-family: 'Noto Serif Thai', serif; }
 
-  .pr-shell { max-width: 820px; margin: 0 auto; padding: 28px 18px 60px; }
+  .pr-shell { max-width: 820px; margin: 0 auto; padding: 26px 16px 60px; }
   .pr-header { text-align: center; margin-bottom: 22px; }
-  .pr-header .arch-wrap { display: flex; justify-content: center; margin-bottom: 6px; }
-  .pr-header h1 { font-size: 26px; font-weight: 700; color: var(--teal); margin: 4px 0 2px; letter-spacing: .3px; }
-  .pr-header p { font-size: 13.5px; color: var(--ink-soft); margin: 0; }
+  .pr-header .arch-wrap { display: flex; justify-content: center; margin-bottom: 8px; }
+  .pr-header h1 { font-size: clamp(20px, 5.4vw, 27px); font-weight: 700; color: var(--teal); margin: 4px 0 4px; letter-spacing: .2px; line-height: 1.25; }
+  .pr-header p { font-size: 14.5px; color: var(--ink-soft); margin: 0; line-height: 1.5; }
   .pr-header .app-sub { margin-top: 2px; }
 
   .contact-footer { text-align: center; margin: 22px 0 6px; padding-top: 16px; border-top: 1px dashed var(--line); }
-  .contact-title { font-size: 12px; color: var(--ink-soft); margin-bottom: 8px; letter-spacing: .04em; }
-  .contact-row { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; }
-  .contact-chip { display: inline-flex; align-items: center; font-size: 12.5px; font-weight: 600; color: var(--teal); background: var(--bg-alt); border: 1px solid var(--line); border-radius: 20px; padding: 7px 14px; text-decoration: none; }
-  .contact-chip:hover { border-color: var(--gold-bright); color: var(--teal-light); }
+  .contact-title { font-size: 13px; color: var(--ink-soft); margin-bottom: 10px; letter-spacing: .04em; }
+  .contact-row { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; }
+  .contact-chip { display: inline-flex; align-items: center; font-size: 14.5px; font-weight: 600; color: var(--teal); background: var(--bg-alt); border: 1px solid var(--line); border-radius: 24px; padding: 10px 18px; text-decoration: none; transition: all .15s ease; }
+  .contact-chip:hover { border-color: var(--gold-bright); color: var(--teal-light); box-shadow: 0 3px 10px rgba(27,58,52,.1); transform: translateY(-1px); }
 
-  .course-select-btn { margin-top: 4px; width: 100%; background: var(--teal); color: #fff; border: none; border-radius: 3px; padding: 12px 16px; font-family: 'Noto Sans Thai', sans-serif; font-size: 14.5px; font-weight: 700; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; transition: background .15s ease; }
-  .course-select-btn:hover { background: var(--saffron); }
+  .course-select-btn { margin-top: 6px; width: 100%; background: linear-gradient(135deg, var(--teal), var(--teal-light)); color: #fff; border: none; border-radius: var(--radius-sm); padding: 15px 18px; font-family: 'Noto Sans Thai', sans-serif; font-size: 16px; font-weight: 700; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; box-shadow: var(--shadow-btn); transition: transform .15s ease, box-shadow .15s ease, background .2s ease; letter-spacing: .2px; }
+  .course-select-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(27,58,52,.3); background: linear-gradient(135deg, var(--saffron), var(--gold-bright)); }
+  .course-select-btn:active { transform: translateY(0); }
 
-  .pr-card { background: var(--panel); border: 1px solid var(--line); border-radius: 4px; padding: 22px; margin-bottom: 16px; position: relative; }
-  .pr-card::before { content: ""; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, var(--gold-bright), var(--saffron)); }
+  .pr-card { background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius); padding: 22px; margin-bottom: 16px; position: relative; box-shadow: var(--shadow); }
+  .pr-card::before { content: ""; position: absolute; top: 0; left: 0; right: 0; height: 3px; border-radius: var(--radius) var(--radius) 0 0; background: linear-gradient(90deg, var(--gold-bright), var(--saffron)); }
 
   .course-grid { display: grid; grid-template-columns: 1fr; gap: 14px; }
   @media (min-width: 620px) { .course-grid { grid-template-columns: 1fr 1fr; } }
-  .course-pick { background: var(--panel); border: 1px solid var(--line); border-top: 3px solid var(--gold-bright); border-radius: 4px; padding: 20px 18px; text-align: left; transition: box-shadow .15s ease, border-color .15s ease; display: flex; flex-direction: column; gap: 8px; color: var(--ink); }
-  .course-pick:hover { box-shadow: 0 8px 22px rgba(27,58,52,.12); border-top-color: var(--saffron); }
-  .course-pick .tag { font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--gold); font-weight: 600; }
-  .course-pick h3 { font-size: 18px; margin: 2px 0; color: var(--teal); }
-  .course-pick .sub { font-size: 12.5px; color: var(--ink-soft); line-height: 1.5; }
+  .course-pick { background: var(--panel); border: 1px solid var(--line); border-top: 3px solid var(--gold-bright); border-radius: var(--radius); padding: 20px 18px; text-align: left; transition: box-shadow .15s ease, border-color .15s ease; display: flex; flex-direction: column; gap: 9px; color: var(--ink); box-shadow: var(--shadow); }
+  .course-pick:hover { box-shadow: 0 10px 26px rgba(27,58,52,.14); border-top-color: var(--saffron); }
+  .course-pick .tag { font-size: 11.5px; letter-spacing: .12em; text-transform: uppercase; color: var(--gold); font-weight: 700; }
+  .course-pick h3 { font-size: 18.5px; margin: 2px 0; color: var(--teal); line-height: 1.35; }
+  .course-pick .sub { font-size: 13.5px; color: var(--ink-soft); line-height: 1.55; }
   .course-pick .cta { margin-top: 8px; font-size: 13px; font-weight: 600; color: var(--teal-light); }
 
-  .pr-progress .step-label { text-align:center; font-size: 12.5px; color: var(--ink-soft); margin-top: 8px; }
+  .pr-progress .step-label { text-align:center; font-size: 13.5px; color: var(--ink-soft); margin-top: 8px; }
 
-  .pr-field { margin-bottom: 16px; }
-  .pr-field label { display: block; font-size: 13.5px; font-weight: 600; color: var(--teal); margin-bottom: 6px; }
-  .pr-field .hint { font-size: 11.5px; color: var(--ink-soft); margin-top: 4px; }
+  .pr-field { margin-bottom: 17px; }
+  .pr-field label { display: block; font-size: 14.5px; font-weight: 700; color: var(--teal); margin-bottom: 7px; }
+  .pr-field .hint { font-size: 12.5px; color: var(--ink-soft); margin-top: 5px; line-height: 1.5; }
   .pr-field input[type=text], .pr-field input[type=tel], .pr-field input[type=date], .pr-field input[type=number],
   .pr-field input[type=email], .pr-field input[type=password], .pr-field select, .pr-field textarea {
-    width: 100%; padding: 10px 12px; border: 1px solid var(--line); border-radius: 3px;
-    background: #fff; font-family: 'Noto Sans Thai', sans-serif; font-size: 14px; color: var(--ink);
+    width: 100%; padding: 13px 14px; border: 1.5px solid var(--line); border-radius: var(--radius-sm);
+    background: #fff; font-family: 'Noto Sans Thai', sans-serif; font-size: 16px; color: var(--ink); line-height: 1.4;
   }
-  .pr-field input:focus, .pr-field select:focus, .pr-field textarea:focus { outline: 2px solid var(--gold-bright); outline-offset: 1px; border-color: var(--gold-bright); }
+  .pr-field select { -webkit-appearance: none; appearance: none; background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='14' height='9' viewBox='0 0 14 9'><path d='M1 1l6 6 6-6' fill='none' stroke='%231B3A34' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/></svg>"); background-repeat: no-repeat; background-position: right 14px center; padding-right: 38px; }
+  .pr-field input:focus, .pr-field select:focus, .pr-field textarea:focus { outline: none; border-color: var(--gold-bright); box-shadow: 0 0 0 3px rgba(201,162,39,.18); }
   .pr-row { display: grid; grid-template-columns: 1fr; gap: 14px; }
   @media (min-width: 560px) { .pr-row.two { grid-template-columns: 1fr 1fr; } .pr-row.three { grid-template-columns: 1fr 1fr 1fr; } }
 
-  .radio-group, .choice-list { display: flex; flex-direction: column; gap: 8px; }
-  .choice-item { border: 1px solid var(--line); border-radius: 3px; padding: 10px 12px; display: flex; align-items: center; gap: 10px; cursor: pointer; font-size: 13.5px; background: #fff; }
+  .radio-group, .choice-list { display: flex; flex-direction: column; gap: 9px; }
+  .choice-item { border: 1.5px solid var(--line); border-radius: var(--radius-sm); padding: 13px 14px; display: flex; align-items: center; gap: 11px; cursor: pointer; font-size: 15px; background: #fff; transition: all .15s ease; }
   .choice-item.selected { border-color: var(--gold-bright); background: #FBF3DE; }
   .choice-item.is-closed { opacity: .55; }
-  .choice-item input { accent-color: var(--teal); }
-  .choice-item .meta { margin-left: auto; font-size: 11.5px; color: var(--saffron); font-weight: 600; }
+  .choice-item input { accent-color: var(--teal); width: 18px; height: 18px; flex-shrink: 0; }
+  .choice-item .meta { margin-left: auto; font-size: 12.5px; color: var(--saffron); font-weight: 700; white-space: nowrap; }
 
-  .pr-actions { display: flex; justify-content: space-between; gap: 10px; margin-top: 22px; flex-wrap: wrap; }
-  .btn { font-family: 'Noto Sans Thai', sans-serif; font-size: 13.5px; font-weight: 600; padding: 10px 18px; border-radius: 3px; border: 1px solid transparent; cursor: pointer; }
-  .btn-primary { background: var(--teal); color: #fff; }
-  .btn-primary:hover { background: var(--teal-light); }
-  .btn-ghost { background: transparent; color: var(--teal); border-color: var(--line); }
-  .btn-ghost:hover { border-color: var(--teal); }
+  .pr-actions { display: flex; justify-content: space-between; gap: 10px; margin-top: 24px; flex-wrap: wrap; }
+  .btn { font-family: 'Noto Sans Thai', sans-serif; font-size: 15px; font-weight: 700; padding: 13px 22px; border-radius: var(--radius-sm); border: 1.5px solid transparent; cursor: pointer; transition: transform .15s ease, box-shadow .15s ease, background .15s ease, border-color .15s ease; letter-spacing: .2px; }
+  .btn-primary { background: linear-gradient(135deg, var(--teal), var(--teal-light)); color: #fff; box-shadow: var(--shadow-btn); }
+  .btn-primary:hover { transform: translateY(-1px); box-shadow: 0 7px 18px rgba(27,58,52,.3); }
+  .btn-primary:active { transform: translateY(0); }
+  .btn-ghost { background: #fff; color: var(--teal); border-color: var(--line); }
+  .btn-ghost:hover { border-color: var(--teal); box-shadow: 0 3px 10px rgba(27,58,52,.08); }
   .btn-danger { background: #fff; color: var(--danger); border-color: var(--danger); }
   .btn-danger:hover { background: var(--danger); color: #fff; }
-  .btn-sm { padding: 6px 10px; font-size: 12px; }
-  .btn:disabled { opacity: .5; cursor: not-allowed; }
+  .btn-sm { padding: 9px 15px; font-size: 13.5px; border-radius: 9px; }
+  .btn:disabled { opacity: .5; cursor: not-allowed; transform: none !important; box-shadow: none !important; }
 
-  .review-table { width: 100%; border-collapse: collapse; font-size: 13.5px; }
-  .review-table td { padding: 6px 4px; border-bottom: 1px dashed var(--line); vertical-align: top; }
+  .review-table { width: 100%; border-collapse: collapse; font-size: 14.5px; }
+  .review-table td { padding: 8px 4px; border-bottom: 1px dashed var(--line); vertical-align: top; }
   .review-table td.k { color: var(--ink-soft); width: 40%; }
   .review-table td.v { font-weight: 500; }
 
-  .accept-box { display:flex; gap:10px; align-items:flex-start; background:#FBF3DE; border:1px solid var(--gold-bright); border-radius:3px; padding:12px 14px; font-size:13px; line-height:1.6; }
-  .accept-box input { margin-top: 3px; accent-color: var(--teal); }
+  .accept-box { display:flex; gap:10px; align-items:flex-start; background:#FBF3DE; border:1px solid var(--gold-bright); border-radius:var(--radius-sm); padding:14px 16px; font-size:14px; line-height:1.65; }
+  .accept-box input { margin-top: 3px; accent-color: var(--teal); width: 18px; height: 18px; flex-shrink: 0; }
 
   .success-wrap { text-align: center; padding: 20px 6px; }
   .success-wrap .ref { font-family: 'Noto Serif Thai', serif; font-size: 22px; color: var(--teal); margin: 10px 0; letter-spacing: .5px; }
-  .success-wrap .box { background: var(--bg-alt); border-radius: 4px; padding: 16px; margin: 16px 0; text-align: left; font-size: 13.5px; line-height: 1.7; }
+  .success-wrap .box { background: var(--bg-alt); border-radius: var(--radius-sm); padding: 16px; margin: 16px 0; text-align: left; font-size: 14.5px; line-height: 1.75; }
 
-  .footer-note { text-align: center; margin-top: 26px; font-size: 12px; color: var(--ink-soft); }
-  .footer-note button { background:none;border:none;color:var(--teal-light); text-decoration:underline; cursor:pointer; font-size:12px; font-family:'Noto Sans Thai',sans-serif; }
+  .footer-note { text-align: center; margin-top: 26px; font-size: 13.5px; color: var(--ink-soft); }
+  .footer-note button { background:none;border:none;color:var(--teal-light); text-decoration:underline; cursor:pointer; font-size:13.5px; font-family:'Noto Sans Thai',sans-serif; padding: 4px; }
 
-  .err-banner { background: #FBE6E0; border: 1px solid var(--danger); color: var(--danger); font-size: 13px; padding: 10px 12px; border-radius: 3px; margin-bottom: 14px; }
-  .ok-banner { background: #E7F1E4; border: 1px solid #4C8C5B; color: #2C5C36; font-size: 13px; padding: 10px 12px; border-radius: 3px; margin-bottom: 14px; }
+  .err-banner { background: #FBE6E0; border: 1px solid var(--danger); color: var(--danger); font-size: 14px; padding: 12px 14px; border-radius: var(--radius-sm); margin-bottom: 14px; line-height: 1.5; }
+  .ok-banner { background: #E7F1E4; border: 1px solid #4C8C5B; color: #2C5C36; font-size: 14px; padding: 12px 14px; border-radius: var(--radius-sm); margin-bottom: 14px; line-height: 1.5; }
 
   .admin-gate { max-width: 340px; margin: 30px auto; text-align: center; }
   .admin-table-wrap { overflow-x: auto; }
-  table.admin-table { width: 100%; border-collapse: collapse; font-size: 12.5px; }
-  table.admin-table th, table.admin-table td { padding: 7px 8px; border-bottom: 1px solid var(--line); text-align: left; white-space: nowrap; }
+  table.admin-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  table.admin-table th, table.admin-table td { padding: 9px 10px; border-bottom: 1px solid var(--line); text-align: left; white-space: nowrap; }
   table.admin-table th { color: var(--teal); font-weight: 700; background: var(--bg-alt); position: sticky; top: 0; }
   .id-mask { cursor: pointer; color: var(--gold); text-decoration: underline dotted; }
-  .empty-state { text-align: center; padding: 40px 10px; color: var(--ink-soft); font-size: 14px; }
-  .spinner-line { text-align:center; padding: 30px; color: var(--ink-soft); font-size: 13.5px; }
+  .empty-state { text-align: center; padding: 40px 10px; color: var(--ink-soft); font-size: 15px; }
+  .spinner-line { text-align:center; padding: 30px; color: var(--ink-soft); font-size: 14.5px; }
   .admin-toolbar { display:flex; flex-wrap:wrap; gap:8px; margin-bottom: 14px; align-items:center; justify-content: space-between; }
-  .tabs { display: flex; gap: 6px; margin-bottom: 16px; border-bottom: 1px solid var(--line); }
-  .tab-btn { padding: 9px 16px; font-size: 13.5px; font-weight: 600; background: none; border: none; cursor: pointer; color: var(--ink-soft); border-bottom: 2px solid transparent; margin-bottom: -1px; font-family:'Noto Sans Thai',sans-serif; }
+  .tabs { display: flex; gap: 6px; margin-bottom: 16px; border-bottom: 1px solid var(--line); overflow-x: auto; }
+  .tab-btn { padding: 11px 18px; font-size: 14.5px; font-weight: 700; background: none; border: none; cursor: pointer; color: var(--ink-soft); border-bottom: 2px solid transparent; margin-bottom: -1px; font-family:'Noto Sans Thai',sans-serif; white-space: nowrap; }
   .tab-btn.active { color: var(--teal); border-bottom-color: var(--gold-bright); }
-  .date-entry { border: 1px solid var(--line); border-radius: 3px; padding: 10px 12px; margin-bottom: 8px; display: grid; grid-template-columns: 1fr; gap: 8px; background: #fff; }
+  .date-entry { border: 1.5px solid var(--line); border-radius: var(--radius-sm); padding: 12px 14px; margin-bottom: 9px; display: grid; grid-template-columns: 1fr; gap: 9px; background: #fff; }
   @media (min-width: 680px) { .date-entry { grid-template-columns: 2.2fr 1fr .8fr auto; align-items: center; } }
-  .date-entry input[type=text], .date-entry input[type=number] { padding: 7px 9px; font-size: 13px; border: 1px solid var(--line); border-radius: 3px; }
-  .date-entry .flags { display: flex; align-items: center; gap: 6px; font-size: 12px; }
-  .badge { font-size: 10.5px; padding: 2px 6px; border-radius: 10px; font-weight: 700; }
+  .date-entry input[type=text], .date-entry input[type=number] { padding: 9px 11px; font-size: 14px; border: 1.5px solid var(--line); border-radius: 8px; }
+  .date-entry .flags { display: flex; align-items: center; gap: 6px; font-size: 13px; }
+  .badge { font-size: 11px; padding: 3px 8px; border-radius: 10px; font-weight: 700; }
   .badge-special { background: #FBF3DE; color: var(--gold); }
   .badge-closed { background: #FBE6E0; color: var(--danger); }
-  .course-sub-tabs { display: flex; gap: 6px; margin-bottom: 12px; }
-  .role-pill { display:inline-block; font-size: 11px; padding: 3px 10px; border-radius: 12px; background: var(--bg-alt); color: var(--teal); font-weight: 700; margin-left: 8px; }
+  .course-sub-tabs { display: flex; gap: 6px; margin-bottom: 12px; overflow-x: auto; }
+  .role-pill { display:inline-block; font-size: 11.5px; padding: 4px 12px; border-radius: 12px; background: var(--bg-alt); color: var(--teal); font-weight: 700; margin-left: 8px; }
+
+  @media (max-width: 420px) {
+    .pr-shell { padding: 18px 12px 50px; }
+    .pr-card { padding: 18px 15px; }
+    .btn { width: 100%; }
+    .pr-actions { flex-direction: column-reverse; }
+    .pr-actions .btn { width: 100%; }
+    .admin-toolbar .btn { width: auto; }
+  }
 </style>
 
 <div id="panya-root">
@@ -300,11 +319,13 @@
     if (state.screen === 'admin-gate') return renderAdminGate();
     if (state.screen === 'admin') return renderAdmin();
     if (state.screen === 'admin-edit') return renderAdminEdit();
+    if (state.screen === 'self-lookup') return renderSelfLookup();
+    if (state.screen === 'self-action') return renderSelfAction();
   }
 
   function renderHeader(){
     return '<div class="pr-header"><div class="arch-wrap"><img src="'+LOGO_DATA_URI+'" alt="ตราวัดปัญญานันทาราม" style="height:88px;width:auto;"></div>' +
-      '<h1>Watpanya Retreat App</h1>' +
+      '<h1>Watpanya Meditation Retreat App</h1>' +
       '<p class="app-sub">ระบบลงทะเบียนปฏิบัติธรรม วัดปัญญานันทาราม &bull; ต.คลองหก อ.คลองหลวง จ.ปทุมธานี</p></div>';
   }
 
@@ -341,26 +362,74 @@
     });
     html += '</div>';
     html += renderContactFooter();
+    html += '<div class="footer-note">สมัครไปแล้ว ต้องการยกเลิกหรือเลื่อนวันที่? <button onclick="PanyaApp.goSelfService()">จัดการใบสมัครของฉัน</button></div>';
     html += '<div class="footer-note">สำหรับเจ้าหน้าที่: <button onclick="PanyaApp.goAdminGate()">เข้าสู่ระบบจัดการ</button></div>';
     root.innerHTML = html;
   }
 
-  function dateChoiceListHTML(entries, selectedId, disabledIfFull){
-    return entries.map(function(entry){
+  function renderSelfLookup(){
+    var html = renderHeader();
+    html += '<div class="pr-card">';
+    html += '<h3 style="color:var(--teal);margin-top:0;">จัดการใบสมัครของฉัน</h3>';
+    html += '<p class="hint" style="margin-bottom:16px;">กรอกหมายเลขอ้างอิงและเบอร์โทรศัพท์ที่ใช้ตอนสมัคร เพื่อยกเลิกหรือขอเลื่อนวันที่ปฏิบัติธรรม</p>';
+    if (state.error) html += '<div class="err-banner">'+esc(state.error)+'</div>';
+    html += '<div class="pr-field"><label>หมายเลขอ้างอิง *</label><input type="text" id="selfRefId" placeholder="เช่น 3DAY-ABC123" value="'+esc(state.selfRefIdInput||'')+'"></div>';
+    html += '<div class="pr-field"><label>เบอร์โทรศัพท์ที่ใช้ตอนสมัคร *</label><input type="tel" id="selfPhone" placeholder="08X-XXX-XXXX" value="'+esc(state.selfPhoneInput||'')+'"></div>';
+    html += '<div class="pr-actions">' +
+      '<button type="button" class="btn btn-ghost" onclick="PanyaApp.reset()">&larr; กลับหน้าแรก</button>' +
+      '<button type="button" class="btn btn-primary" onclick="PanyaApp.lookupSelf()">ค้นหาใบสมัคร</button>' +
+      '</div></div>';
+    root.innerHTML = html;
+  }
+
+  function renderSelfAction(){
+    var r = state.selfRecord;
+    var course = COURSES[r.courseId];
+    var entries = state.dateConfigs[r.courseId] || [];
+    var html = renderHeader();
+    html += '<div class="pr-card">';
+    html += '<h3 style="color:var(--teal);margin-top:0;">ใบสมัครของคุณ</h3>';
+    if (state.error) html += '<div class="err-banner">'+esc(state.error)+'</div>';
+    if (state.ok) html += '<div class="ok-banner">'+esc(state.ok)+'</div>';
+    html += '<table class="review-table">' +
+      '<tr><td class="k">หมายเลขอ้างอิง</td><td class="v">'+esc(r.refId)+'</td></tr>' +
+      '<tr><td class="k">หลักสูตร</td><td class="v">'+esc(course.fullName)+'</td></tr>' +
+      '<tr><td class="k">วัน/รุ่นปัจจุบัน</td><td class="v">'+esc(r.dateLabel)+'</td></tr>' +
+      '<tr><td class="k">ชื่อ-สกุล</td><td class="v">'+esc((r.title==='อื่นๆ'?r.titleOther:r.title)+' '+r.firstName+' '+r.lastName)+'</td></tr>' +
+      '</table>';
+
+    if (state.selfMode === 'reschedule'){
+      html += '<div class="pr-field" style="margin-top:18px;"><label>เลือกวัน/รุ่นใหม่ที่ต้องการเลื่อนไป *</label>' +
+        dateSelectHTML(entries.filter(function(e){ return e.id !== r.dateId; }), state.selfNewDateId, 'PanyaApp.setSelfNewDate', false) + '</div>';
+      html += '<div class="pr-actions">' +
+        '<button type="button" class="btn btn-ghost" onclick="PanyaApp.cancelSelfReschedule()">&larr; ยกเลิก</button>' +
+        '<button type="button" class="btn btn-primary" onclick="PanyaApp.confirmSelfReschedule()">ยืนยันการเลื่อนวันที่</button>' +
+        '</div>';
+    } else {
+      html += '<div class="pr-actions">' +
+        '<button type="button" class="btn btn-ghost" onclick="PanyaApp.reset()">&larr; กลับหน้าแรก</button>' +
+        '<button type="button" class="btn btn-ghost" onclick="PanyaApp.openSelfReschedule()">ขอเลื่อนวันที่ปฏิบัติ</button>' +
+        '<button type="button" class="btn btn-danger" onclick="PanyaApp.selfCancel()">ขอยกเลิกการสมัคร</button>' +
+        '</div>';
+    }
+    html += '</div>';
+    root.innerHTML = html;
+  }
+
+  function dateSelectHTML(entries, selectedId, handlerName, allowFull){
+    var options = '<option value="">-- กรุณาเลือกวัน/รุ่น --</option>';
+    entries.forEach(function(entry){
       var seats = seatsLeftText(entry);
-      var isFull = seats === 'เต็มแล้ว' || entry.closed;
-      var checked = selectedId === entry.id ? 'checked' : '';
-      return '<label class="choice-item '+(checked?'selected':'')+' '+(isFull?'is-closed':'')+'">' +
-        '<input type="radio" name="dateChoice" value="'+esc(entry.id)+'" '+checked+' '+(isFull&&disabledIfFull?'disabled':'')+' required onchange="PanyaApp.setDateChoice(\''+esc(entry.id)+'\')">' +
-        '<span>'+esc(entry.label)+(entry.special?' <span class="badge badge-special">กรณีพิเศษ</span>':'')+'</span>' +
-        (seats ? '<span class="meta">'+esc(seats)+'</span>' : '') +
-        '</label>';
-    }).join('');
+      var isFull = entry.closed || seats === 'เต็มแล้ว';
+      var labelText = entry.label + (entry.special ? ' (กรณีพิเศษ)' : '') + (seats ? ' — ' + seats : '');
+      options += '<option value="'+esc(entry.id)+'" '+(selectedId===entry.id?'selected':'')+' '+((isFull&&!allowFull)?'disabled':'')+'>'+esc(labelText)+'</option>';
+    });
+    return '<select required onchange="'+handlerName+'(this.value)">' + options + '</select>';
   }
 
   function fieldsForStep(step, course, d, entries){
     if (step === 0){
-      var html = '<div class="pr-field"><label>เลือกวัน/รุ่นที่ต้องการสมัคร *</label><div class="choice-list">'+dateChoiceListHTML(entries, d.dateId, true)+'</div></div>';
+      var html = '<div class="pr-field"><label>เลือกวัน/รุ่นที่ต้องการสมัคร *</label>'+dateSelectHTML(entries, d.dateId, 'PanyaApp.setDateChoice', false)+'</div>';
       html += '<div class="pr-field"><label>อีเมลสำหรับติดต่อกลับ *</label><input type="email" required value="'+esc(d.email||'')+'" oninput="PanyaApp.setField(\'email\', this.value)" placeholder="name@email.com"></div>';
       if (course.requireAccept){
         html += '<div class="pr-field"><div class="accept-box">' +
@@ -606,7 +675,7 @@
         Object.keys(COURSES).map(function(k){ return '<option value="'+k+'" '+(d.courseId===k?'selected':'')+'>'+esc(COURSES[k].fullName)+'</option>'; }).join('') + '</select></div>';
     }
     html += '<form id="prEditForm">';
-    html += '<div class="pr-field"><label>วัน/รุ่นที่สมัคร *</label><div class="choice-list">'+dateChoiceListHTML(entries, d.dateId, false)+'</div></div>';
+    html += '<div class="pr-field"><label>วัน/รุ่นที่สมัคร *</label>'+dateSelectHTML(entries, d.dateId, 'PanyaApp.setEditDateChoice', true)+'</div>';
     html += fieldsForStep(1, course, d, entries).replace(/PanyaApp\.setField/g, 'PanyaApp.setEditField');
     html += fieldsForStep(2, course, d, entries).replace(/PanyaApp\.setField/g, 'PanyaApp.setEditField');
     html += '<div class="pr-field"><label>อีเมล</label><input type="email" value="'+esc(d.email||'')+'" oninput="PanyaApp.setEditField(\'email\', this.value)"></div>';
@@ -617,9 +686,6 @@
       '</div>';
     html += '</div>';
     root.innerHTML = html;
-    // rewire dateChoice radios for edit form (they call setDateChoice by default; override)
-    var radios = document.querySelectorAll('input[name=dateChoice]');
-    radios.forEach(function(r){ r.addEventListener('change', function(){ state.editing.dateId = r.value; }); });
   }
 
   window.PanyaApp = {
@@ -676,8 +742,68 @@
       state.submitting = false; render();
     },
     reset: function(){
-      state = Object.assign(state, { screen:'select', course:null, step:0, data:{}, error:'', ok:'', adminRole:null, adminTab:'list', editing:null });
+      state = Object.assign(state, { screen:'select', course:null, step:0, data:{}, error:'', ok:'', adminRole:null, adminTab:'list', editing:null, selfRecord:null, selfMode:'view', selfNewDateId:null, selfRefIdInput:'', selfPhoneInput:'' });
       render();
+    },
+    goSelfService: function(){
+      state.screen = 'self-lookup'; state.error=''; state.ok=''; render();
+    },
+    lookupSelf: async function(){
+      var refInp = document.getElementById('selfRefId');
+      var phoneInp = document.getElementById('selfPhone');
+      var refId = refInp ? refInp.value.trim().toUpperCase() : '';
+      var phone = phoneInp ? phoneInp.value.trim() : '';
+      state.selfRefIdInput = refId; state.selfPhoneInput = phone;
+      if (!refId || !phone){ state.error = 'กรุณากรอกหมายเลขอ้างอิงและเบอร์โทรศัพท์ให้ครบ'; render(); return; }
+      try {
+        var res = await window.storage.get('application:' + refId, true);
+        if (!res || !res.value){ state.error = 'ไม่พบใบสมัครตามหมายเลขอ้างอิงนี้'; render(); return; }
+        var record = JSON.parse(res.value);
+        var normalize = function(s){ return String(s||'').replace(/[^0-9]/g,''); };
+        if (normalize(record.phone) !== normalize(phone)){
+          state.error = 'เบอร์โทรศัพท์ไม่ตรงกับที่ใช้สมัครไว้'; render(); return;
+        }
+        await ensureDateConfig(record.courseId);
+        state.selfRecord = record; state.selfMode = 'view'; state.selfNewDateId = null;
+        state.error=''; state.screen = 'self-action'; render();
+      } catch(e){ state.error = 'เกิดข้อผิดพลาด กรุณาลองใหม่อีกครั้ง'; render(); }
+    },
+    openSelfReschedule: function(){ state.selfMode = 'reschedule'; state.selfNewDateId = null; state.error=''; render(); },
+    cancelSelfReschedule: function(){ state.selfMode = 'view'; state.error=''; render(); },
+    setSelfNewDate: function(id){ state.selfNewDateId = id; },
+    confirmSelfReschedule: async function(){
+      if (!state.selfNewDateId){ state.error = 'กรุณาเลือกวัน/รุ่นใหม่ที่ต้องการเลื่อนไป'; render(); return; }
+      var r = state.selfRecord;
+      try {
+        var entries = await refreshDateConfig(r.courseId);
+        var newEntry = findEntry(entries, state.selfNewDateId);
+        if (!newEntry || newEntry.closed || seatsLeftText(newEntry) === 'เต็มแล้ว'){
+          state.error = 'รอบที่เลือกเต็มหรือปิดรับสมัครแล้ว กรุณาเลือกรอบอื่น'; render(); return;
+        }
+        var oldEntry = findEntry(entries, r.dateId);
+        if (oldEntry) oldEntry.used = Math.max(0, (oldEntry.used||0) - 1);
+        newEntry.used = (newEntry.used||0) + 1;
+        await saveDateConfig(r.courseId, entries);
+        var updated = Object.assign({}, r, { dateId: newEntry.id, dateLabel: newEntry.label });
+        await window.storage.set('application:' + r.refId, JSON.stringify(updated), true);
+        state.selfRecord = updated; state.selfMode = 'view'; state.error='';
+        state.ok = 'เลื่อนวันที่ปฏิบัติธรรมเรียบร้อยแล้ว เป็น: ' + newEntry.label;
+        render();
+      } catch(e){ state.error = 'บันทึกไม่สำเร็จ กรุณาลองใหม่อีกครั้ง'; render(); }
+    },
+    selfCancel: async function(){
+      if (!confirm('ยืนยันการยกเลิกใบสมัครนี้? การยกเลิกไม่สามารถกู้คืนได้')) return;
+      var r = state.selfRecord;
+      try {
+        var entries = await refreshDateConfig(r.courseId);
+        var entry = findEntry(entries, r.dateId);
+        if (entry){ entry.used = Math.max(0, (entry.used||0) - 1); await saveDateConfig(r.courseId, entries); }
+        await window.storage.delete('application:' + r.refId, true);
+        state.selfRecord = null; state.screen = 'select'; state.error='';
+        state.ok = '';
+        alert('ยกเลิกใบสมัครหมายเลข ' + r.refId + ' เรียบร้อยแล้ว');
+        render();
+      } catch(e){ state.error = 'ยกเลิกไม่สำเร็จ กรุณาลองใหม่อีกครั้ง'; render(); }
     },
     goAdminGate: function(){ state.screen = 'admin-gate'; state.error = ''; render(); },
     checkAdminCode: function(){
@@ -748,6 +874,7 @@
       state.error=''; state.screen = 'admin-edit'; render();
     },
     setEditField: function(key, val){ state.editing[key] = val; },
+    setEditDateChoice: function(id){ state.editing.dateId = id; },
     setEditCourse: function(courseId){
       state.editing.courseId = courseId; state.editing.dateId = null;
       ensureDateConfig(courseId).then(render);
